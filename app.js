@@ -6,6 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var umbrellaRouter = require('./routes/umbrella');
+var addmodsRouter = require('./routes/addmods');
+var selectorRouter = require('./routes/selector')
 
 var app = express();
 
@@ -21,14 +24,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/umbrella', umbrellaRouter);
+app.use('/addmods', addmodsRouter);
+app.use('/selector', selectorRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(err, req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
